@@ -57,9 +57,12 @@ public class loginActivity extends Activity {
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
+				
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
-				JsonObjectRequest jsonReq = new JsonObjectRequest(Method.GET,
+				
+				
+				/*JsonObjectRequest jsonReq = new JsonObjectRequest(Method.GET,
 						LOGIN_URL, null, new Response.Listener<JSONObject>() {
 
 							@Override
@@ -76,16 +79,19 @@ public class loginActivity extends Activity {
 							public void onErrorResponse(VolleyError error) {
 								//VolleyLog.d(TAG, "Error: " + error.getMessage());
 							}
-						});
+						});*/
 
 				// Adding request to volley request queue
-				AppController.getInstance().addToRequestQueue(jsonReq);
+				//AppController.getInstance().addToRequestQueue(jsonReq);
 
-				/*UserFunctions userFunction = new UserFunctions();
-				JSONObject json = userFunction.loginUser(email, password);
-
+				UserFunctions userFunction = new UserFunctions();
+				JSONObject js=userFunction.loginUser(email, password);
+				Log.d("response", js.toString());
+				//JSONObject json = userFunction.loginUser(email, password);
+				
+				//Log.d("response", json.toString());
 				// check for login response
-				try {
+				/*try {
 				
 					if (json.getString(KEY_SUCCESS) != null) {
 						loginErrorMsg.setText("");
@@ -99,7 +105,7 @@ public class loginActivity extends Activity {
 							// Clear all previous data in database
 							userFunction.logoutUser(getApplicationContext());
 							db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));						
-							*/
+							
 							// Launch Dashboard Screen
 							Intent dashboard = new Intent(getApplicationContext(),  MainActivity.class);
 							
@@ -109,7 +115,7 @@ public class loginActivity extends Activity {
 							
 							// Close Login Screen
 							finish();
-						/*}else{
+						}else{
 							// Error in login
 							loginErrorMsg.setText("Incorrect username/password");
 						}
@@ -130,4 +136,6 @@ public class loginActivity extends Activity {
 				finish();
 			}
 		});
-	}}
+		
+	}
+}
