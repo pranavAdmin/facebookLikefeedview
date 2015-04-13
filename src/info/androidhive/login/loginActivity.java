@@ -66,6 +66,7 @@ public class loginActivity extends Activity {
 							public void onResponse(JSONObject response) {
 								//VolleyLog.d(TAG, "Response: " + response.toString());
 								if (response != null) {
+									Log.d("response :", response.toString());
 									//parseJsonFeed(response);
 								}
 							}
