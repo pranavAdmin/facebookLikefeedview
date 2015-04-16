@@ -40,7 +40,7 @@ public class loginActivity extends Activity {
 	private static String KEY_EMAIL = "email";
 	private static String KEY_CREATED_AT = "created_at";
 	
-	private static String LOGIN_URL="http://10.0.2.2/all_structure/admin/checkLogin.php";
+	private static String LOGIN_URL="http://10.0.2.2/android_login/";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
