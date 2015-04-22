@@ -36,15 +36,11 @@ public class JSONParser {
 	}
 
 	public JSONObject getJSONFromUrl(String url, List<NameValuePair> params) {
-
-		
 		// Making HTTP request
 		try {
 			// defaultHttpClient
-			Log.d("parser", url+params.toString());
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(url);
-			Log.d("adfasdf", new UrlEncodedFormEntity(params).toString());
 			httpPost.setEntity(new UrlEncodedFormEntity(params));
 			
 			HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -63,7 +59,6 @@ public class JSONParser {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 			StringBuilder sb = new StringBuilder();
@@ -77,16 +72,13 @@ public class JSONParser {
 		} catch (Exception e) {
 			Log.e("Buffer Error", "Error converting result " + e.toString());
 		}
-
 		// try parse the string to a JSON object
 		try {
 			jObj = new JSONObject(json);			
 		} catch (JSONException e) {
 			Log.e("JSON Parser", "Error parsing data " + e.toString());
 		}
-
 		// return JSON String
 		return jObj;
-
 	}
 }

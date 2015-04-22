@@ -1,13 +1,18 @@
 package info.androidhive.login;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.Request.Method;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import info.androidhive.library.DatabaseHandler;
 import info.androidhive.library.UserFunctions;
@@ -22,6 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import info.androidhive.library.customRequest;
 
 public class loginActivity extends Activity {
 	
@@ -40,7 +46,7 @@ public class loginActivity extends Activity {
 	private static String KEY_EMAIL = "email";
 	private static String KEY_CREATED_AT = "created_at";
 	
-	private static String LOGIN_URL="http://10.0.2.2/android_login/";
+	private static String LOGIN_URL="http://10.0.2.2/all_structure/admin/checkLogin.php";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class loginActivity extends Activity {
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 		loginErrorMsg = (TextView) findViewById(R.id.login_error);
+		
 
 		// Login button Click Event
 		btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +67,39 @@ public class loginActivity extends Activity {
 				
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
+				
+				/********* Custom code by pranav*/
+				//String url = some valid url;
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("username", email);
+				params.put("password", password);
+
+				customRequest jsObjRequest = new customRequest(Method.POST, LOGIN_URL, params, new Response.Listener<JSONObject>() {
+
+				            @Override
+				            public void onResponse(JSONObject response) {
+				            	 Log.d("Response: ", response.toString());
+				                /*try {
+				                    Log.d("Response: ", response.toString());
+				                } catch (JSONException e) {
+				                    // TODO Auto-generated catch block
+				                    e.printStackTrace();
+				                }*/
+
+				            }
+				        }, new Response.ErrorListener() {
+
+				            @Override
+				            public void onErrorResponse(VolleyError response) {
+				                Log.d("Response: ", response.toString());
+				            }
+				        });
+				        AppController.getInstance().addToRequestQueue(jsObjRequest);
+				
+				/**********************************/
+				
+				
+				
 				
 				
 				/*JsonObjectRequest jsonReq = new JsonObjectRequest(Method.GET,
@@ -79,15 +119,14 @@ public class loginActivity extends Activity {
 							public void onErrorResponse(VolleyError error) {
 								//VolleyLog.d(TAG, "Error: " + error.getMessage());
 							}
-						});*/
+						});
 
 				// Adding request to volley request queue
-				//AppController.getInstance().addToRequestQueue(jsonReq);
+				AppController.getInstance().addToRequestQueue(jsonReq);*/
 
-				UserFunctions userFunction = new UserFunctions();
-				JSONObject js=userFunction.loginUser(email, password);
-				Log.d("response", js.toString());
-				//JSONObject json = userFunction.loginUser(email, password);
+				/*UserFunctions userFunction = new UserFunctions();
+				JSONObject json = userFunction.loginUser(email, password);
+				*/
 				
 				//Log.d("response", json.toString());
 				// check for login response
