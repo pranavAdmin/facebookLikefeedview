@@ -3,6 +3,7 @@ package info.androidhive.login;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +20,7 @@ import info.androidhive.library.UserFunctions;
 import info.androidhive.listviewfeed.MainActivity;
 import info.androidhive.listviewfeed.R;
 import info.androidhive.listviewfeed.app.AppController;
+import info.androidhive.listviewfeed.data.FeedItem;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -165,6 +167,12 @@ public class loginActivity extends Activity {
 			}
 		});
 
+		/*****************/
+
+		
+		/**/
+		
+		
 		// Link to Register Screen
 		btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
@@ -176,5 +184,36 @@ public class loginActivity extends Activity {
 			}
 		});
 		
+	}
+	private void parseJsonFeed(JSONObject response) {
+		try {
+			JSONArray feedArray = response.getJSONArray("feed");
+
+			for (int i = 0; i < feedArray.length(); i++) {
+				
+				JSONObject feedObj = (JSONObject) feedArray.get(i);
+				FeedItem item = new FeedItem();
+				item.setId(feedObj.getInt("id"));
+				item.setName(feedObj.getString("name"));
+
+				// Image might be null sometimes
+				String image = feedObj.isNull("image") ? null : feedObj.getString("image");
+				item.setImge(image);
+				item.setStatus(feedObj.getString("status"));
+				item.setProfilePic(feedObj.getString("profilePic"));
+				item.setTimeStamp(feedObj.getString("timeStamp"));
+
+				// url might be null sometimes
+				String feedUrl = feedObj.isNull("url") ? null : feedObj.getString("url");
+				item.setUrl(feedUrl);
+
+				//feedItems.add(item);
+			}
+
+			// notify data changes to list adapater
+			//listAdapter.notifyDataSetChanged();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 }
