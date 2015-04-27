@@ -19,12 +19,15 @@
             android:label="@string/login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="info.androidhive.listviewfeed.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="info.androidhive.register.registerActivity"
             android:label="@string/app_name" >
         </activity>
         

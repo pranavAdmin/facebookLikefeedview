@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import info.androidhive.library.customRequest;
+import info.androidhive.register.registerActivity;
 
 public class loginActivity extends Activity {
 	
@@ -78,107 +79,26 @@ public class loginActivity extends Activity {
 
 				customRequest jsObjRequest = new customRequest(Method.POST, LOGIN_URL, params, new Response.Listener<JSONObject>() {
 
-				            @Override
-				            public void onResponse(JSONObject response) {
-				            	 Log.d("Response: ", response.toString());
-				                /*try {
-				                    Log.d("Response: ", response.toString());
-				                } catch (JSONException e) {
-				                    // TODO Auto-generated catch block
-				                    e.printStackTrace();
-				                }*/
-
-				            }
-				        }, new Response.ErrorListener() {
-
-				            @Override
-				            public void onErrorResponse(VolleyError response) {
-				                Log.d("Response: ", response.toString());
-				            }
-				        });
-				        AppController.getInstance().addToRequestQueue(jsObjRequest);
-				
+		            @Override
+		            public void onResponse(JSONObject response) {
+		            	parseJsonFeed(response);
+		            	// Log.d("Response: ", response.toString());
+		            }
+		        }, new Response.ErrorListener() {
+		            @Override
+		            public void onErrorResponse(VolleyError response) {
+		                //Log.d("Response: ", response.toString());
+		            }
+		        });
+		        AppController.getInstance().addToRequestQueue(jsObjRequest);
 				/**********************************/
-				
-				
-				
-				
-				
-				/*JsonObjectRequest jsonReq = new JsonObjectRequest(Method.GET,
-						LOGIN_URL, null, new Response.Listener<JSONObject>() {
-
-							@Override
-							public void onResponse(JSONObject response) {
-								//VolleyLog.d(TAG, "Response: " + response.toString());
-								if (response != null) {
-									Log.d("response :", response.toString());
-									//parseJsonFeed(response);
-								}
-							}
-						}, new Response.ErrorListener() {
-
-							@Override
-							public void onErrorResponse(VolleyError error) {
-								//VolleyLog.d(TAG, "Error: " + error.getMessage());
-							}
-						});
-
-				// Adding request to volley request queue
-				AppController.getInstance().addToRequestQueue(jsonReq);*/
-
-				/*UserFunctions userFunction = new UserFunctions();
-				JSONObject json = userFunction.loginUser(email, password);
-				*/
-				
-				//Log.d("response", json.toString());
-				// check for login response
-				/*try {
-				
-					if (json.getString(KEY_SUCCESS) != null) {
-						loginErrorMsg.setText("");
-						String res = json.getString(KEY_SUCCESS); 
-						if(Integer.parseInt(res) == 1){
-							// user successfully logged in
-							// Store user details in SQLite Database
-							DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-							JSONObject json_user = json.getJSONObject("user");
-							
-							// Clear all previous data in database
-							userFunction.logoutUser(getApplicationContext());
-							db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));						
-							
-							// Launch Dashboard Screen
-							Intent dashboard = new Intent(getApplicationContext(),  MainActivity.class);
-							
-							// Close all views before launching Dashboard
-							//dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-							startActivity(dashboard);
-							
-							// Close Login Screen
-							finish();
-						}else{
-							// Error in login
-							loginErrorMsg.setText("Incorrect username/password");
-						}
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}*/
 			}
 		});
-
-		/*****************/
-
-		
-		/**/
-		
-		
 		// Link to Register Screen
 		btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(),
-						MainActivity.class);
+				Intent i = new Intent(getApplicationContext(),registerActivity.class);
 				startActivity(i);
 				finish();
 			}
@@ -187,9 +107,19 @@ public class loginActivity extends Activity {
 	}
 	private void parseJsonFeed(JSONObject response) {
 		try {
-			JSONArray feedArray = response.getJSONArray("feed");
-
-			for (int i = 0; i < feedArray.length(); i++) {
+			JSONArray feedArray = response.getJSONArray("record");
+			Log.d("record",feedArray.toString());
+			Log.d("success", response.getString("success"));
+			if(response.getString("success")=="1"){
+				Intent i=new Intent(getApplicationContext(),MainActivity.class);
+				startActivity(i);
+				finish();
+			}
+			else {
+				String str="You are not authorised";
+				loginErrorMsg.setText(str);
+				}
+			/*for (int i = 0; i < feedArray.length(); i++) {
 				
 				JSONObject feedObj = (JSONObject) feedArray.get(i);
 				FeedItem item = new FeedItem();
@@ -208,7 +138,7 @@ public class loginActivity extends Activity {
 				item.setUrl(feedUrl);
 
 				//feedItems.add(item);
-			}
+			}*/
 
 			// notify data changes to list adapater
 			//listAdapter.notifyDataSetChanged();
