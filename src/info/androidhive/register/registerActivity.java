@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import info.androidhive.login.loginActivity;
 import info.androidhive.library.DatabaseHandler;
 import info.androidhive.library.UserFunctions;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +33,8 @@ public class registerActivity extends Activity {
 	private static String KEY_EMAIL = "email";
 	private static String KEY_CREATED_AT = "created_at";
 
+	private static String REGISTER_URL="http://10.0.2.2/all_structure/admin/register.php";
+	
 	public void onCreate(Bundle savedInstanceState){
 		
 		super.onCreate(savedInstanceState);

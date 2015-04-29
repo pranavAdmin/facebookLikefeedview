@@ -20,9 +20,10 @@ public class UserFunctions {
 	private JSONParser jsonParser;
 	
 	//private static String loginURL = "http://10.0.2.2/android_login/";
-	private static String registerURL = "http://10.0.2.2/android_login/";
+	//private static String registerURL = "http://10.0.2.2/android_login/";
 
 	private static String loginURL="http://10.0.2.2/all_structure/admin/checkLogin.php";
+	private static String registerURL = "http://10.0.2.2/all_structure/admin/register.php";
 	
 	private static String login_tag = "login";
 	private static String register_tag = "register";

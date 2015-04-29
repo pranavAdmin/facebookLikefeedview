@@ -24,6 +24,8 @@ import info.androidhive.listviewfeed.data.FeedItem;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -63,6 +65,29 @@ public class loginActivity extends Activity {
 		loginErrorMsg = (TextView) findViewById(R.id.login_error);
 		
 
+		inputEmail.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				loginErrorMsg.setText("");
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		// Login button Click Event
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 
@@ -70,6 +95,16 @@ public class loginActivity extends Activity {
 				
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
+				
+				if(email==""){
+					KEY_ERROR="User Name should not blank\n";
+					inputEmail.setFocusable(true);
+				}
+
+				if(password==""){
+					KEY_ERROR="Password should not blank\n";
+					inputPassword.setFocusable(true);
+				}
 				
 				/********* Custom code by pranav*/
 				//String url = some valid url;
@@ -82,12 +117,10 @@ public class loginActivity extends Activity {
 		            @Override
 		            public void onResponse(JSONObject response) {
 		            	parseJsonFeed(response);
-		            	// Log.d("Response: ", response.toString());
 		            }
 		        }, new Response.ErrorListener() {
 		            @Override
 		            public void onErrorResponse(VolleyError response) {
-		                //Log.d("Response: ", response.toString());
 		            }
 		        });
 		        AppController.getInstance().addToRequestQueue(jsObjRequest);
@@ -108,16 +141,14 @@ public class loginActivity extends Activity {
 	private void parseJsonFeed(JSONObject response) {
 		try {
 			JSONArray feedArray = response.getJSONArray("record");
-			Log.d("record",feedArray.toString());
-			Log.d("success", response.getString("success"));
 			if(response.getString("success")=="1"){
 				Intent i=new Intent(getApplicationContext(),MainActivity.class);
 				startActivity(i);
 				finish();
 			}
 			else {
-				String str="You are not authorised";
-				loginErrorMsg.setText(str);
+				KEY_ERROR="You are not authorised\n";
+				loginErrorMsg.setText(KEY_ERROR);
 				}
 			/*for (int i = 0; i < feedArray.length(); i++) {
 				

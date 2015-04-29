@@ -43,9 +43,11 @@ public class customRequest extends Request<JSONObject> {
                     HttpHeaderParser.parseCharset(response.headers));
             return Response.success(new JSONObject(jsonString),
                     HttpHeaderParser.parseCacheHeaders(response));
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
-        } catch (JSONException je) {
+        }
+        catch (JSONException je) {
             return Response.error(new ParseError(je));
         }
     }
