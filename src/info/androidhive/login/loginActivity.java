@@ -1,5 +1,6 @@
 package info.androidhive.login;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,10 @@ import com.android.volley.VolleyLog;
 import com.android.volley.Request.Method;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import info.androidhive.library.Railway;
+
+import java.util.Date;
 
 import info.androidhive.library.DatabaseHandler;
 import info.androidhive.library.UserFunctions;
@@ -106,6 +111,12 @@ public class loginActivity extends Activity {
 					inputPassword.setFocusable(true);
 				}
 				
+				/*Railway class called*/
+				Railway rs=new Railway();
+				Date dt=Calendar.getInstance().getTime();
+				rs.getFare("12555", "gkp", "ndls", 25, dt);
+				
+				/**/
 				/********* Custom code by pranav*/
 				//String url = some valid url;
 				Map<String, String> params = new HashMap<String, String>();

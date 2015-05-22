@@ -18,7 +18,6 @@ public class railwayApi extends Activity {
 	private String stationName="http://api.railwayapi.com/name_to_code/station/luckn/apikey/20238/";
 	private String stationCode="http://api.railwayapi.com/code_to_name/code/gkp/apikey/20238/";
 	
-	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
