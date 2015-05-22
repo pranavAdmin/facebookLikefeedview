@@ -114,7 +114,8 @@ public class loginActivity extends Activity {
 				/*Railway class called*/
 				Railway rs=new Railway();
 				Date dt=Calendar.getInstance().getTime();
-				rs.getFare("12555", "gkp", "ndls", 25, dt);
+				rs.getPNR("8457952224");
+				//rs.getFare("12555", "gkp", "ndls", 25, dt);
 				
 				/**/
 				/********* Custom code by pranav*/
