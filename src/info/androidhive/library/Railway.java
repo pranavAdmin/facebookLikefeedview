@@ -4,8 +4,10 @@ import info.androidhive.listviewfeed.app.AppController;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
 import java.sql.Timestamp;
 
 import org.json.JSONArray;
@@ -35,9 +37,9 @@ public class Railway {
 	
 	private String url="http://api.railwayapi.com/";
 	private String INRapi="20238";
+	private String apiKeyStr="/apikey/"+INRapi;
+
 	private JSONObject jObj;
-
-
 	private String forFare="fare/train/";
 	private String trainArrival="arrivals/station/";
 	private String stationSuggest="suggest_station/name/";
@@ -51,24 +53,15 @@ public class Railway {
 	private String stationName="name_to_code/station/";
 	private String stationCode="code_to_name/code/";
 	
-	private String apiKeyStr="/apikey/"+INRapi;
-	
-//	private String forFare="http://api.railwayapi.com/fare/train/12555/source/gkp/dest/ndls/age/18/quota/PT/doj/23-11-2014/apikey/20238/";
-//	private String trainArrival="http://api.railwayapi.com/arrivals/station/gkp/hours/2/apikey/20238/";
-//	private String stationSuggest="http://api.railwayapi.com/suggest_station/name/mum/apikey/20238/";
-//	private String trainSuggest="http://api.railwayapi.com/suggest_train/trains/123/apikey/20238/";
-//	private String liveTrain="http://api.railwayapi.com/live/train/11093/doj/20141125/apikey/20238/";
-//	private String pnrStatus="http://api.railwayapi.com/pnr_status/pnr/1234567890/apikey/20238/";
-//	private String seatAvailibity="http://api.railwayapi.com/check_seat/train/12001/source/BPL/dest/NDLS/date/14-10-2014/class/CC/quota/GN/apikey/20238/";
-//	private String trainRoute="http://api.railwayapi.com/route/train/12555/apikey/20238/";
-//	private String trainBtwnStation="http://api.railwayapi.com/between/source/lko/dest/anvt/apikey/20238/";
-//	private String trainName="http://api.railwayapi.com/name_number/train/bhopal/apikey/20238/";
-//	private String stationName="http://api.railwayapi.com/name_to_code/station/luckn/apikey/20238/";
-//	private String stationCode="http://api.railwayapi.com/code_to_name/code/gkp/apikey/20238/";
-
+	private String[] Quota={"GN","LD","HO","DF","PH","FT","DP","CK","PT","SS","HP","RE","GNRS","OS","PQ","RC(RAC)","RS","YU","LB"};
 	
 	public JSONObject getPNR(String PNR){
 		url+=pnrStatus+PNR;
+		return customRequestCall(url);
+	}
+	
+	public JSONObject getSeatavailable(String train,String Source,String Destination,Date dt,String Class){
+		url+=seatAvailibity+"train/"+train+"/source/"+Source+"/dest/"+Destination+"/date/"+"class/CC/quota/"+Class;
 		return customRequestCall(url);
 	}
 
