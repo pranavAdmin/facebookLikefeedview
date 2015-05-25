@@ -112,9 +112,12 @@ public class loginActivity extends Activity {
 				}
 				
 				/*Railway class called*/
+				
 				Railway rs=new Railway();
 				Date dt=Calendar.getInstance().getTime();
-				rs.getPNR("8457952224");
+				//rs.getPNR("8457952224");
+				//rs.getStationCode("ahmedabad");
+				rs.getSeatavailable("16337", "adi", "thvm", dt, "GN");
 				//rs.getFare("12555", "gkp", "ndls", 25, dt);
 				
 				/**/

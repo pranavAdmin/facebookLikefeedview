@@ -61,7 +61,8 @@ public class Railway {
 	}
 	
 	public JSONObject getSeatavailable(String train,String Source,String Destination,Date dt,String Class){
-		url+=seatAvailibity+"train/"+train+"/source/"+Source+"/dest/"+Destination+"/date/"+"class/CC/quota/"+Class;
+		SimpleDateFormat sdf=new SimpleDateFormat("dd-mm-yyyy");
+		url+=seatAvailibity+train+"/source/"+Source+"/dest/"+Destination+"/date/"+sdf.format(dt)+"/class/CC/quota/"+Class;
 		return customRequestCall(url);
 	}
 
@@ -88,6 +89,7 @@ public class Railway {
 		return customRequestCall(url);
 	}
 /* STATION RELATED OVER */
+	
 /* TRAIN RELATED INFORMATION STARTS*/
 	public JSONObject getTrainName(String train){
 
@@ -117,7 +119,8 @@ public class Railway {
 		url+=trainArrival+Station+"/hours/"+sdf.format(tm);
 		return customRequestCall(url);
 	}
-/*TRAIN RELATED INFORMATION OVER*/	
+/*TRAIN RELATED INFORMATION OVER*/
+	
 /* json volley custom request class call method*/
 	private JSONObject customRequestCall(String Url){
 		
