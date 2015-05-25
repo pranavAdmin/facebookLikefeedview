@@ -13,13 +13,17 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 public class UserFunctions {
 	
 	private JSONParser jsonParser;
 	
-	private static String loginURL = "http://10.0.2.2/android_login/";
-	private static String registerURL = "http://10.0.2.2/android_login/";
+	//private static String loginURL = "http://10.0.2.2/android_login/";
+	//private static String registerURL = "http://10.0.2.2/android_login/";
+
+	private static String loginURL="http://10.0.2.2/all_structure/admin/checkLogin.php";
+	private static String registerURL = "http://10.0.2.2/all_structure/admin/register.php";
 	
 	private static String login_tag = "login";
 	private static String register_tag = "register";
@@ -37,12 +41,12 @@ public class UserFunctions {
 	public JSONObject loginUser(String email, String password){
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("tag", login_tag));
-		params.add(new BasicNameValuePair("email", email));
+		//params.add(new BasicNameValuePair("tag", login_tag));
+		params.add(new BasicNameValuePair("username", email));
 		params.add(new BasicNameValuePair("password", password));
 		JSONObject json = jsonParser.getJSONFromUrl(loginURL, params);
 		// return json
-		// Log.e("JSON", json.toString());
+		 Log.d("JSON", json.toString());
 		return json;
 	}
 	

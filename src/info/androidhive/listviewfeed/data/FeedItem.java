@@ -89,6 +89,7 @@ public class FeedItem {
             calendar.setTimeInMillis(timestamp * 1000);
             calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            //SimpleDateFormat sdf = new SimpleDateFormat("h:m a");
             Date currenTimeZone = (Date) calendar.getTime();
             return sdf.format(currenTimeZone);
         }catch (Exception e) {

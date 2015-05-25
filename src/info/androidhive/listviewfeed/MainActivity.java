@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -80,6 +81,7 @@ public class MainActivity extends Activity {
 
 						@Override
 						public void onResponse(JSONObject response) {
+
 							VolleyLog.d(TAG, "Response: " + response.toString());
 							if (response != null) {
 								parseJsonFeed(response);
@@ -107,23 +109,21 @@ public class MainActivity extends Activity {
 			JSONArray feedArray = response.getJSONArray("feed");
 
 			for (int i = 0; i < feedArray.length(); i++) {
+				
 				JSONObject feedObj = (JSONObject) feedArray.get(i);
-
 				FeedItem item = new FeedItem();
 				item.setId(feedObj.getInt("id"));
 				item.setName(feedObj.getString("name"));
 
 				// Image might be null sometimes
-				String image = feedObj.isNull("image") ? null : feedObj
-						.getString("image");
+				String image = feedObj.isNull("image") ? null : feedObj.getString("image");
 				item.setImge(image);
 				item.setStatus(feedObj.getString("status"));
 				item.setProfilePic(feedObj.getString("profilePic"));
 				item.setTimeStamp(feedObj.getString("timeStamp"));
 
 				// url might be null sometimes
-				String feedUrl = feedObj.isNull("url") ? null : feedObj
-						.getString("url");
+				String feedUrl = feedObj.isNull("url") ? null : feedObj.getString("url");
 				item.setUrl(feedUrl);
 
 				feedItems.add(item);
